@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load staticfiles %}
+    {% load bootstrap3 %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Logo Nav - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/logo-nav.css' %}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{% url 'home' %}" class="navbar-brand">Estacionamento Vaga Facil</a>
+
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                     <li>
+                        <a class="page-scroll" href="{% url 'carro' %}">Cadastro Carro</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{% url 'cliente' %}">Cadastro Cliente</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{% url 'vaga' %}">Cadastro Vaga</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{% url 'reserva' %}">Reserva Vaga</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    
+    <script src="js/bootstrap.min.js"></script>
+    
+	<div id="listagem" class="list-group">
+
+        <h2 id="TituloTable"> Reservas Cadastradas </h2>
+        <br> 
+        <br>
+            <form action="{% url 'listarreservas' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="query" size="50">
+                <input class="btn btn-custom btn-lg" type="submit" value= "Buscar">
+            </form>
+            <br>
+            <br>
+            <table class="table table-condensed">
+                <th><td width='25%'>Cliente</td></th>
+                <th><td width='25%'>Carro</td></th>
+                <th><td width='25%'>Vaga</td></th>
+                <th><td width='10%'>TempoEntra</td></th>
+                <th><td width='10%'>TempoSaida</td></th>
+            
+            </table>
+
+
+            {% for q in listareserva %}
+            <a href="{% url 'editarreserva' q.pk %}">
+                <table class="table table-condensed">
+                       <th><td width='25%'>{{ q.cliente }}</td></th>
+                       <th><td width='25%'>{{ q.carro }}</td></th>
+                       <th><td width='25%'>{{ q.vaga }}</td></th>
+                       <th><td width='10%'>{{ q.tempoentrada }}</td></th>
+                       <th><td width='10%'>{{ q.temposaida }}</td></th>
+                 
+                </table>
+            </a>
+            {% endfor %}
+    </div>
+    <div id="InserirNovo">
+        <h1><a class="btn btn-custom btn-lg" href="{% url 'reserva' %}" role="button">Cadastrar Nova Reserva</a></h1>
+    </div>
+
+<script type="text/javascript" src="js/javascript.js"></script>
+  
+  
+</body>
+
+</html>
